@@ -37,7 +37,7 @@ sed -i "8i srv=$num" $work_dir/vpn-client-add.sh
 echo "#Confiruration of openvpn server $name
 port $port
 proto $proto
-dev tun${num}t
+dev tun$num
 ca $name/keys/ca.crt
 cert $name/keys/$name.crt
 key $name/keys/$name.key  # This file should be kept secret
@@ -61,11 +61,7 @@ verb 3
 script-security 2
 up $name/bin/auto.sh" > $work_dir/srv/$name.conf
 echo 'push "dhcp-option DNS 8.8.8.8"
-push "route 10.50.1.1 255.255.255.255"
-push "route 192.168.34.0 255.255.255.0"
-push "route 192.168.30.40 255.255.255.255"
-push "route 185.70.40.0 255.255.255.0"
-push "route 185.70.41.0 255.255.255.0"' >> $work_dir/srv/$name.conf
+push "route 10.50.1.1 255.255.255.255"' >> $work_dir/srv/$name.conf
 touch $work_dir/base.conf
 echo "remote $ip
 proto $proto
@@ -95,7 +91,7 @@ cd $work_dir
 echo "Под каким пользователем отправить конфигурацию сервера на сервер? "
 read -r
 user=$REPLY
-scp -P 22011 -r srv $user@$ip:/tmp
+scp -r srv $user@$ip:/tmp
 echo "Ключи сервера находятся в 
 	$work_dir/srv/$name/keys/ca.crt
 	$work_dir/srv/$name/keys/$name.crt
