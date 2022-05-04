@@ -58,8 +58,7 @@ persist-tun
 status /var/log/openvpn.$name-status.log
 log-append  /var/log/openvpn.$name.log
 verb 3
-script-security 2
-up $name/bin/auto.sh" > $work_dir/srv/$name.conf
+script-security 2" > $work_dir/srv/$name.conf
 echo 'push "dhcp-option DNS 8.8.8.8"
 push "route 10.50.1.1 255.255.255.255"' >> $work_dir/srv/$name.conf
 touch $work_dir/base.conf
