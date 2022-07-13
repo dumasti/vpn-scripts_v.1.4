@@ -1,15 +1,54 @@
 # vpn-scripts
-инструкция для создания нового сервера vpn:
-1. Идем на сервер 10.20.33.2
-2. sudo -i
-3. cd /var/opt/celery/ca/newvpn/
-4. cp create-vpn_clear/* vpn...
-5. cd vpn...
-6. меняем имя фирмы в файле buildCA.sh
-7. chmod +x *.sh
-8. ./buildCA.sh
-9. ./vpn-server-add.sh
+## how to
+### Go to CA server and install git
+```
+apt update && apt install git -y
+git clone https://github.com/dumasti/vpn-scripts_v.1.4.git
+mv vpn-scripts_v.1.4/create-vpn_clear ~/create-vpn
+cd create-vpn/
+```
+### Change vars in buildCA.sh
+```
+chmod +x *.sh
+./buildCA.sh
+./vpn-server-add.sh
+```
 
-На сервер будет отправлена вся структура. Надо зайти на сервер и переместить структуру в директорию /etc/openvpn/ после сделать исполняемыми файлы в /etc/openvpn/vpnNAME_SERVER/bin/, настроить shorewall и запустить сервер.
+### Go to server openvpn and configure firewall and move config from /tmp/srv/ to /etc/openvpn/
+```
+mv /tmp/srv/* /etc/openvpn/
+chmod +x /etc/openvpn/vpnNAME_SERVER/bin
+systemctl start openvpn@vpnNAME_SERVER
+```
 
-10. ./vpn-client-add.sh
+### For create users certs go to CA server and run this command
+```
+./vpn-client-add.sh
+```
+
+## Инструкция для создания нового сервера vpn:
+### Идем на CA сервер и устанавливаем git
+```
+apt update && apt install git -y
+git clone https://github.com/dumasti/vpn-scripts_v.1.4.git
+mv vpn-scripts_v.1.4/create-vpn_clear ~/create-vpn
+cd create-vpn/
+```
+### Меняем переменные в buildCA.sh
+```
+chmod +x *.sh
+./buildCA.sh
+./vpn-server-add.sh
+```
+
+### Идем на сервер openvpn и настраиваем файервол, так же перемещаем конфигурацию впн сервера из /tmp/srv/ в /etc/openvpn/
+```
+mv /tmp/srv/* /etc/openvpn/
+chmod +x /etc/openvpn/vpnNAME_SERVER/bin
+systemctl start openvpn@vpnNAME_SERVER
+```
+
+### Для создания пользовательского сертификата идем на сервер CA и запускаем следующее
+```
+./vpn-client-add.sh
+```
