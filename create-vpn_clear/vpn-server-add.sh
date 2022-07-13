@@ -50,7 +50,7 @@ client-config-dir $name/ccd
 keepalive 10 120
 tls-auth $name/keys/ta.key 0 # This file is secret
 cipher AES-128-CBC   # AES
-comp-lzo
+;comp-lzo
 max-clients 30
 persist-key
 persist-tun
@@ -71,7 +71,7 @@ persist-tun
 nobind
 client
 pull
-comp-lzo
+;comp-lzo
 tls-client
 remote-cert-tls server
 verb 3
